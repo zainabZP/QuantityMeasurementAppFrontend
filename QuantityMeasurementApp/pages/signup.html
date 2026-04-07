@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up — Quantity Measurement</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <h2>⚖️ Create Account</h2>
+      <p class="subtitle">Join Quantity Measurement</p>
+
+      <div class="alert alert-error" id="alertError"></div>
+      <div class="alert alert-success" id="alertSuccess"></div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="johndoe" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Min 8 characters" />
+      </div>
+      <button class="btn-primary" id="signupBtn">Create Account</button>
+
+      <p class="auth-link">Already have an account? <a href="login.html">Sign In</a></p>
+    </div>
+  </div>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

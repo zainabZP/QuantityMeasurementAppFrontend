@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>History — Quantity Measurement</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-brand">⚖️ QuantityMeasurement</div>
+    <ul class="navbar-nav">
+      <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="history.html" class="nav-link active">History</a></li>
+      <li><a href="profile.html" class="nav-link">Profile</a></li>
+      <li><button class="btn-logout" id="logoutBtn">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="page-container">
+    <h1 class="page-title">Calculation History</h1>
+    <p class="page-subtitle">Browse and filter your past operations.</p>
+
+    <div class="filter-bar">
+      <select id="filterType">
+        <option value="all">All Records</option>
+        <option value="operation">By Operation</option>
+        <option value="measurement">By Measurement</option>
+      </select>
+      <select id="filterValue">
+        <option value="">-- Select --</option>
+      </select>
+      <button class="btn-filter" id="filterBtn">Apply Filter</button>
+      <button class="btn-filter" id="resetBtn" style="background:var(--text-muted);">Reset</button>
+    </div>
+
+    <div id="loadingSpinner" class="spinner"></div>
+
+    <div class="history-table-wrap" id="tableWrap" style="display:none;">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Operation</th>
+            <th>Type</th>
+            <th>Input 1</th>
+            <th>Input 2</th>
+            <th>Result</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="empty-icon">📭</div>
+      <p>No records found.</p>
+    </div>
+  </div>
+
+  <script src="../js/history.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Quantity Measurement</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-brand">⚖️ QuantityMeasurement</div>
+    <ul class="navbar-nav">
+      <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+      <li><a href="#" class="nav-link" id="historyBtn">History</a></li>
+      <li id="profileNavItem" style="display:none;"><a href="profile.html" class="nav-link">Profile</a></li>
+      <li id="logoutNavItem" style="display:none;"><button class="btn-logout" id="logoutBtn">Logout</button></li>
+      <li id="loginNavItem"><a href="login.html" class="nav-link">Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-container">
+    <h1 class="page-title">Welcome To Quantity Measurement</h1>
+    <p class="page-subtitle">Select a type and action to get started.</p>
+
+    <!-- Type Selector -->
+    <div class="type-grid" id="typeGrid">
+      <div class="type-card active" data-type="Length">
+        <div class="icon">📏</div>
+        <div class="label">Length</div>
+      </div>
+      <div class="type-card" data-type="Weight">
+        <div class="icon">⚖️</div>
+        <div class="label">Weight</div>
+      </div>
+      <div class="type-card" data-type="Temperature">
+        <div class="icon">🌡️</div>
+        <div class="label">Temperature</div>
+      </div>
+      <div class="type-card" data-type="Volume">
+        <div class="icon">🧴</div>
+        <div class="label">Volume</div>
+      </div>
+    </div>
+
+    <!-- Action Tabs -->
+    <div class="action-tabs" id="actionTabs">
+      <button class="tab-btn active" data-action="compare">Comparison</button>
+      <button class="tab-btn" data-action="convert">Conversion</button>
+      <button class="tab-btn" data-action="add">Add</button>
+      <button class="tab-btn" data-action="subtract">Subtract</button>
+      <button class="tab-btn" data-action="divide">Divide</button>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="calc-card">
+      <div class="input-row">
+        <div class="input-block">
+          <label id="label1">VALUE 1</label>
+          <input type="number" id="val1" value="1" />
+          <select id="unit1" style="margin-top:8px;"></select>
+        </div>
+        <div class="operator-symbol" id="operatorSymbol">=?</div>
+        <div class="input-block">
+          <label id="label2">VALUE 2</label>
+          <input type="number" id="val2" value="1" />
+          <select id="unit2" style="margin-top:8px;"></select>
+        </div>
+      </div>
+
+      <!-- Result unit selector (only for arithmetic) -->
+      <div class="form-group" id="resultUnitGroup" style="display:none;">
+        <label>Result Unit</label>
+        <select id="resultUnit"></select>
+      </div>
+
+      <div class="alert alert-error" id="alertError"></div>
+      <button class="btn-calc" id="calcBtn">Calculate</button>
+
+      <div class="result-box" id="resultBox">
+        <div class="result-label" id="resultLabel">RESULT</div>
+        <div class="result-value" id="resultValue">—</div>
+        <div class="result-unit" id="resultUnitDisplay"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
