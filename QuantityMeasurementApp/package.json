@@ -1,8 +1,0 @@
-{
-  "name": "quantity-measurement-frontend",
-  "version": "1.0.0",
-  "description": "UC19 Frontend for Quantity Measurement App",
-  "scripts": {
-    "start": "npx serve ."
-  }
-}
