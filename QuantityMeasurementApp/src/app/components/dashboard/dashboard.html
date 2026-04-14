@@ -1,0 +1,104 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Quantity Calculator</h1>
+    <p>Perform measurements, conversions, and arithmetic — no login required</p>
+  </div>
+
+  <!-- Measurement Type -->
+  <div class="card">
+    <h3 class="card-title">Measurement Type</h3>
+    <div class="type-grid">
+      @for (type of measurementTypes; track type) {
+        <button class="type-btn" id="type-{{ type }}"
+                [class.active]="selectedType() === type"
+                (click)="onTypeChange(type)">
+          <span class="type-emoji">
+            {{ type === 'length' ? '📏' : type === 'weight' ? '⚖️' : type === 'volume' ? '🧪' : '🌡️' }}
+          </span>
+          <span>{{ type | titlecase }}</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Operation -->
+  <div class="card">
+    <h3 class="card-title">Operation</h3>
+    <div class="op-grid">
+      @for (op of operations; track op.id) {
+        <button class="op-btn" id="op-{{ op.id }}"
+                [class.active]="selectedOp() === op.id"
+                [class.disabled]="op.id !== 'divide' && op.id !== 'compare' && op.id !== 'add' && op.id !== 'subtract' && op.id !== 'convert'"
+                (click)="onOpChange(op.id)">
+          <span>{{ op.icon }}</span>
+          <span>{{ op.label }}</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="card">
+    <h3 class="card-title">Values</h3>
+    <div class="input-row">
+      <div class="input-group">
+        <label for="val1">
+          {{ needsTwoInputs ? 'First Value' : 'Source Value' }}
+        </label>
+        <input id="val1" type="number" [ngModel]="value1()" (ngModelChange)="value1.set($event)" step="any"/>
+        <select id="unit1" [ngModel]="unit1()" (ngModelChange)="unit1.set($event)">
+          @for (u of units; track u) {
+            <option [value]="u">{{ u }}</option>
+          }
+        </select>
+      </div>
+
+      @if (needsTwoInputs) {
+        <div class="op-symbol">{{ currentOp.icon }}</div>
+      }
+
+      <div class="input-group">
+        <label for="val2">{{ needsTwoInputs ? 'Second Value' : 'Target Unit' }}</label>
+        @if (needsTwoInputs) {
+          <input id="val2" type="number" [ngModel]="value2()" (ngModelChange)="value2.set($event)" step="any"/>
+        } @else {
+          <input id="val2-placeholder" type="number" value="—" disabled style="opacity:0.3"/>
+        }
+        <select id="unit2" [ngModel]="unit2()" (ngModelChange)="unit2.set($event)">
+          @for (u of units; track u) {
+            <option [value]="u">{{ u }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <button class="calc-btn" id="calculate-btn" (click)="calculate()" [disabled]="loading()">
+      @if (loading()) {
+        <span class="btn-spinner"></span> Calculating...
+      } @else {
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Calculate
+      }
+    </button>
+  </div>
+
+  <!-- Result -->
+  @if (result() || error()) {
+    <div class="result-card" [class.error]="!!error()">
+      @if (result()) {
+        <div class="result-content">
+          <div class="result-icon">✨</div>
+          <div class="result-text">{{ result() }}</div>
+        </div>
+      }
+      @if (error()) {
+        <div class="result-content">
+          <div class="result-icon">⚠️</div>
+          <div class="result-text">{{ error() }}</div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+
+<div class="app-layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    @if (appState.activeView() === 'dashboard') {
+      <app-dashboard></app-dashboard>
+    } @else if (appState.activeView() === 'history') {
+      <app-history></app-history>
+    }
+  </main>
+</div>
+
+@if (appState.showAuthModal()) {
+  <app-auth-modal></app-auth-modal>
+}

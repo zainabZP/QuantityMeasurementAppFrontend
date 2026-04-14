@@ -1,0 +1,68 @@
+<div class="history-page">
+  <div class="history-header">
+    <div class="history-header-text">
+      <h1>Operation History</h1>
+      <p>Your personal measurement history</p>
+    </div>
+    <button class="refresh-btn" id="refresh-history-btn" (click)="loadHistory()" [disabled]="loading()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           [class.rotating]="loading()">
+        <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+      </svg>
+      Refresh
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="loader-ring"></div>
+      <p>Loading your history...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <p>{{ error() }}</p>
+      <button class="retry-btn" (click)="loadHistory()">Try Again</button>
+    </div>
+  } @else if (records().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <p>No operations found. Perform some calculations on the Dashboard first!</p>
+    </div>
+  } @else {
+    <div class="table-wrapper">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Operation</th>
+            <th>Operand 1</th>
+            <th>Operand 2</th>
+            <th>Result</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of records(); track r.id; let i = $index) {
+            <tr>
+              <td class="cell-index">{{ i + 1 }}</td>
+              <td>
+                <span class="op-badge" [ngClass]="opClass(r.operationType)">
+                  {{ r.operationType }}
+                </span>
+              </td>
+              <td class="cell-mono">{{ r.operand1 ?? '—' }}</td>
+              <td class="cell-mono">{{ r.operand2 ?? '—' }}</td>
+              <td class="cell-result">{{ formatResult(r) }}</td>
+              <td class="cell-date">{{ formatDate(r.timestamp) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      Showing {{ records().length }} record{{ records().length !== 1 ? 's' : '' }}
+    </div>
+  }
+</div>

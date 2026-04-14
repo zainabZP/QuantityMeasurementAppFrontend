@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <button class="hamburger" (click)="toggleSidebar()" id="toggle-sidebar-btn" title="Toggle sidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navbar-brand">
+      <div class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <span>QuantiMeasure</span>
+    </div>
+  </div>
+
+  <div class="navbar-right">
+    @if (auth.isLoggedIn()) {
+      <button class="nav-btn active-view" id="nav-history-btn"
+              [class.active]="appState.activeView() === 'history'"
+              (click)="onHistoryClick()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 018 0z"/>
+        </svg>
+        History
+      </button>
+      <button class="nav-btn logout-btn" id="nav-logout-btn" (click)="logout()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+        </svg>
+        Logout
+      </button>
+    } @else {
+      <button class="nav-btn" id="nav-login-btn" (click)="appState.openModal('login')">
+        Sign In
+      </button>
+      <button class="nav-btn primary-btn" id="nav-register-btn" (click)="appState.openModal('register')">
+        Register
+      </button>
+    }
+  </div>
+</nav>

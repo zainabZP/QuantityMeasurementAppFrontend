@@ -1,0 +1,53 @@
+<div class="modal-overlay" (click)="close()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="close()" id="close-auth-modal">&times;</button>
+
+    <div class="modal-header">
+      <div class="modal-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <h2>{{ isLogin ? 'Welcome Back' : 'Create Account' }}</h2>
+      <p>{{ isLogin ? 'Sign in to access your history' : 'Register to save your operation history' }}</p>
+    </div>
+
+    <form (ngSubmit)="submit()" class="modal-form">
+      @if (!isLogin) {
+        <div class="form-group">
+          <label for="modal-username">Username</label>
+          <input id="modal-username" type="text" [(ngModel)]="username" name="username"
+                 placeholder="Your username" required autocomplete="username"/>
+        </div>
+      }
+      <div class="form-group">
+        <label for="modal-email">Email</label>
+        <input id="modal-email" type="email" [(ngModel)]="email" name="email"
+               placeholder="your@email.com" required autocomplete="email"/>
+      </div>
+      <div class="form-group">
+        <label for="modal-password">Password</label>
+        <input id="modal-password" type="password" [(ngModel)]="password" name="password"
+               placeholder="••••••••" required autocomplete="current-password"/>
+      </div>
+
+      @if (error) {
+        <div class="modal-error">{{ error }}</div>
+      }
+
+      <button type="submit" class="btn-primary" id="auth-submit-btn" [disabled]="loading">
+        @if (loading) { <span class="spinner"></span> }
+        {{ isLogin ? 'Sign In' : 'Create Account' }}
+      </button>
+    </form>
+
+    <div class="modal-footer">
+      <p>{{ isLogin ? "Don't have an account?" : 'Already have an account?' }}
+        <button class="link-btn" (click)="switchMode()" id="switch-auth-mode">
+          {{ isLogin ? 'Register' : 'Sign In' }}
+        </button>
+      </p>
+    </div>
+  </div>
+</div>
